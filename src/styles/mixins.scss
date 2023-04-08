@@ -1,0 +1,26 @@
+@mixin flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin flex-center {
+    @include flex-between();
+    align-items: center;
+}
+
+@mixin bg-default {
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@mixin media($size) {
+    @if $size == phone-only {
+        @media (max-width: 600px) { @content; }
+    } @else if $size == tablet-landscape-up {
+        @media (min-width: 900px) { @content; }
+    } @else if $size == desktop-up {
+        @media (min-width: 1200px) { @content; }
+    } @else if $size == big-desktop-up {
+        @media (min-width: 1800px) { @content; }
+    }
+}

@@ -1,0 +1,424 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import "colors.scss";
+@import "mixins.scss";
+
+@include media(phone-only){
+    .menu {
+        display: block;
+        #menu__toggle {
+            opacity: 0;
+            position: fixed;
+            z-index: 4;
+            &:checked ~ .menu__btn > span {
+                transform: rotate(45deg);
+            }
+            &:checked ~ .menu__btn > span::before {
+                top: 0;
+                transform: rotate(0);
+            }
+            &:checked ~ .menu__btn > span::after {
+                top: 0;
+                transform: rotate(90deg);
+            }
+            &:checked ~ .menu__box {
+                visibility: visible;
+                top: 0;
+            }
+        }
+        &__btn {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 25px;
+            right: 20px;
+            width: 26px;
+            height: 26px;
+            z-index: 5;
+            &__span,
+            &__span::after,
+            &__span::before {
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 3px;
+                background-color: $brown;
+                transition-duration: .5s;
+            }
+            &__span::before {
+                content: '';
+                top: -8px;
+            }
+            &__span::after {
+                content: '';
+                top: 8px;
+            }
+        }
+        &__box {
+            display: block;
+            position: fixed;
+            visibility: hidden;
+            top: 0;
+            top: -100%;
+            width: 100%;
+            height: 50%;
+            margin: 0;
+            padding: 90px 0;
+            list-style: none;
+            text-align: center;
+            background-color: $white;
+            box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+            transition-duration: .5s;
+            z-index: 2;
+        }
+        &__link {
+            display: block;
+            padding: 12px 24px;
+            color: $brown;
+            font-size: 20px;
+            font-weight: 400;
+            text-decoration: none;
+            transition-duration: .5s;
+        }
+    }
+    .modal {
+        &__window {
+            border-radius: 12px;
+            width: 350px;
+            padding: 30px 0;
+        }
+        &__btn-close {
+            width: 15px;
+            height: 15px;
+            top: 20px;
+            right: 20px;
+        }
+        &__title {
+            font-size: 25px;
+            margin-bottom: 30px;
+        }
+        &__form {
+            gap: 30px;
+            &__input {
+                border: 1px solid rgba(237, 233, 232, 1);
+                padding: 15px;
+                border-radius: 10px;
+                font-size: 20px;
+                width: 300px;
+                height: 60px;
+                &::placeholder {
+                    font-size: 20px;
+                }
+                &:focus{
+                    outline-width: 1px;
+                }
+            }
+            &__link {
+                font-size: 15px;
+            }
+            &__btn {
+                width: 200px;
+                height: 50px;
+                border-radius: 15px;
+                font-weight: 700;
+                font-size: 20px;
+            }
+        }
+    }
+    .scroll-up {
+        width: 50px;
+        height: 50px;
+    }
+    .header {
+        width: 100%;
+        margin: 0;
+        padding: 20px 20px;
+        position: fixed;
+        z-index: 3;
+        background-color: $white;
+        &__logo {
+            background-image: url(../images/logo-for-media.svg);
+            width: 160px;
+            height: 40px;
+            background-size: contain;
+        }
+        &__list {
+            display: none;
+        }
+        &__location {
+            display: none;
+        }
+    }
+    .container {
+        width: 100%;
+        padding: 0 20px;
+        &__title {
+            margin-top: 50px;
+        }
+    }
+    .main {
+        flex-direction: column;
+        text-align: center;
+        gap: 50px;
+        padding-top: 110px;
+        &__text {
+            @include flex-center();
+            flex-direction: column;
+        }
+        &__title {
+            font-size: 40px;
+            line-height: 1.2;
+            margin-bottom: 40px;
+        }
+        &__btn {
+            box-shadow: 0px 2px 15px $orange;
+            font-size: 15px;
+            padding: 14px 40px;
+            border-radius: 33.5px;
+            transition: .2s;
+        }
+        &__social {
+            margin-top: 40px;
+        }
+        &__image {
+            width: 100%;
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .social {
+        &__item {
+            margin-right: 30px;
+            &_margin {
+                margin-right: 25px;
+            }
+        }
+        &__svg {
+            &_white {
+                width: 35px;
+            }
+        }
+    }
+    .grid {
+        @include flex-center();
+        flex-direction: column;
+        margin: 50px 0;
+        &__item {
+            width: 300px;
+            height: 140px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        &__title {
+            font-size: 25px;
+        }
+        &__text {
+            font-size: 15px;
+        }
+        &__svg {
+            width: 70px;
+            height: 70px;
+            bottom: 20px;
+            right: 20px;
+        }
+    }
+    .title {
+        font-size: 25px;
+        text-align: center;
+    }
+    .history {
+        padding: 50px 0 70px;
+        &__text {
+            font-size: 15px;
+            margin: 30px 0 30px;
+            br {
+                display: none;
+            }
+        }
+        .specialists {
+            &__title {
+                margin-top: 30px;
+            }
+            &__slider {
+                margin-top: 30px;
+                margin-bottom: 30px;
+                &__btn {
+                    width: 35px;
+                    height: 30px;
+                }
+                &__svg {
+                    width: fit-content;
+                }
+                &__wrapper {
+                    width: 100%;
+                    padding-left: 0;
+                    margin: 0 10px 0;
+                }
+                &__list {
+                    gap: 7px;
+                }
+                &__item {
+                    width: 85px;
+                }
+            }
+        }
+    }
+    .link-more {
+        font-size: 12px;
+        &::after {
+            content: '';
+            width: 7px;
+            height: 10px;
+            top: 20%;
+        }
+    }
+    .counter {
+        padding: 80px 0 200px;
+        &__title {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        &__text {
+            font-size: 30px;
+            line-height: 1.4;
+            br {
+                display: none;
+            }
+        }
+        &__img {
+            width: 114px;
+            height: 111px;
+            left: 50%;
+            margin-left: -57px;
+            bottom: 15%;
+        }
+    }
+    .advantages {
+        &__title {
+            margin-top: 50px;
+        }
+        &__grid{
+            margin: 50px 0 80px;
+            @include flex-center();
+            flex-direction: column;
+        }
+        &__block {
+            text-align: center;
+            margin-bottom: 25px;
+            width: 250px;
+            &:last-child {
+                display: none;
+            }
+            &__title {
+                font-size: 25px;
+                margin-bottom: 30px;
+            }
+            &__content {
+                @include flex-center();
+                flex-direction: column;
+                gap: 20px;
+            }
+            &__text {
+                font-size: 15px;
+            }
+            &__img {
+                width: 100px;
+                height: 70px;
+            }
+        }
+    }
+    .app {
+        padding: 80px 0 80px 0;
+        text-align: center;
+        &__box {
+            @include flex-center();
+            flex-direction: column;
+        }
+        &__text {
+            @include flex-center();
+            flex-direction: column;
+            margin-bottom: 30px;
+        }
+        &__title {
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+        &__dog {
+            max-width: 181px;
+            bottom: 38px;
+            left: -69px;
+        }
+        &__screen {
+            max-width: 183px;
+            left: 28px;
+            z-index: 1;
+        }
+    }
+    .download {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        &__link{
+            width: 120px;
+            height: 35px;
+            background-size: contain;
+        }
+    }
+    .contacts {
+        flex-direction: column;
+        margin: 30px 0 80px;
+        gap: 50px;
+        &__details {
+            display: block;
+        }
+        &__box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            &:first-child {
+                margin-bottom: 30px;
+            }
+        }
+        &__title {
+            font-size: 18px;
+        }
+        &__text {
+            font-size: 12px;
+            &::before {
+                width: 15px;
+                height: 15px;
+                margin-right: 14px;
+                background-size: contain;
+            }
+            &__address::before {
+                width: 20px;
+                height: 15px;
+            }
+        }
+        &__map {
+            width: 100%;
+            height: 250px;
+        }
+    }
+    .footer {
+        padding: 30px 0;
+        &__box {
+            @include flex-center();
+            flex-direction: column;
+            gap: 30px;
+        }
+        &__logo {
+            width: 160px;
+            height: 40px;
+            background-size: contain;
+        }
+        &__item {
+            margin: 0 5px;
+        }
+        &__link {
+            font-size: 10px;
+        }
+    }
+}

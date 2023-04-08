@@ -1,0 +1,598 @@
+@use "sass:math";
+@function toVw($target) {
+    $vw-context: (1350 * 0.01) * 1px;
+    @return math.div($target, $vw-context) * 1vw;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import "colors.scss";
+@import "mixins.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    font-family: 'Open Sans', sans-serif;
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+}
+
+.burger-menu {
+    display: none;
+}
+.modal-opened {
+    visibility: hidden;
+}
+.modal {
+    &__layout {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+        background-color: rgba(8, 6, 6, 0.5);
+    }
+    &__window {
+        background-color: $white;
+        border-radius: toVw(20px);
+        width: toVw(400px);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        padding: toVw(50px) 0;
+    }
+    &__btn-close {
+        background-color: transparent;
+        border: none;
+        width: toVw(20px);
+        height: toVw(20px);
+        position: absolute;
+        top: toVw(20px);
+        right: toVw(20px);
+        cursor: pointer;
+        &:hover {
+            .modal__svg {
+                fill: $orange;
+            }
+        }
+    }
+    &__svg {
+        fill: $light-brown;
+    }
+    &__title {
+        font-weight: 400;
+        font-size: toVw(30px);
+        line-height: 1.4;
+        color: $dark;
+        margin-bottom: toVw(32px);
+    }
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: toVw(32px);
+        &__input {
+            border: toVw(1px) solid rgba(237, 233, 232, 1);
+            padding: toVw(16px);
+            border-radius: toVw(20px);
+            font-weight: 400;
+            font-size: toVw(20px);
+            width: toVw(344px);
+            height: toVw(57px);
+            background-color: transparent;
+            color: $brown;
+            &::placeholder {
+                color: rgba(195, 185, 181, 1);
+                font-weight: 400;
+                font-size: toVw(20px);
+            }
+            &:focus{
+                outline-style: auto;
+                outline-width: toVw(1px);
+                outline-color: $light-brown
+            }
+        }
+        &__link {
+            text-decoration: underline;
+            font-weight: 400;
+            font-size: toVw(15px);
+            color: $orange;
+            &:hover {
+                color:#fdae7a;
+            }
+        }
+        &__btn {
+            width: toVw(284px);
+            height: toVw(67px);
+            cursor: pointer;
+            background-color: $orange;
+            border: none;
+            border-radius: toVw(33px);
+            font-weight: 700;
+            font-size: toVw(20px);
+            color: $white;
+            text-transform: uppercase;
+            &:hover {
+                background-color: #fdae7a;
+            }
+        }
+    }
+}
+.scroll-up {
+    position: fixed;
+    display: none;
+    cursor: pointer;
+    right: 3%;
+    bottom: 32%;
+    border: none;
+    transform: rotate(-90deg);
+    background-color: $light-brown;
+    width: toVw(50px);
+    height: toVw(50px);
+    border-radius: 50%;
+    opacity: 0.7;
+    z-index: 100;
+    &:hover {
+        background-color: $brown;
+    }
+    &__svg {
+        fill: $white;
+        scale: 1.3;
+    }
+}
+.header {
+    @include flex-center();
+    max-width: toVw(1350px);
+    padding: 0 toVw(20px);
+    margin: toVw(20px) auto toVw(20px);
+    &__logo {
+        background-image: url(../images/logo.svg);
+        @include bg-default();
+        width: toVw(79px);
+        height: toVw(62px);
+    }
+    &__list {
+        display: flex;
+        list-style: none;
+    }
+    &__item {
+        margin: 0 toVw(30px);
+    }
+    &__link {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: toVw(20px);
+        color: $light-brown;
+        transition: .2s;
+        &:hover {
+            color: $orange;
+        }
+    }
+    &__location {
+        font-weight: 700;
+        font-size: toVw(20px);
+        color: $orange;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        &::before {
+            content: '';
+            background-image: url(../images/geo.svg);
+            @include bg-default();
+            width: toVw(20px);
+            height: toVw(29px);
+            display: block;
+            margin-right: toVw(19px);
+        }
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+.container {
+    max-width: toVw(1350px);
+    padding: 0 toVw(30px);
+    margin: 0 auto;
+    &__title {
+        margin-top: toVw(150px);
+    }
+}
+.main {
+    @include flex-center();
+    &__title {
+        font-weight: 400;
+        font-size: toVw(80px);
+        line-height: 1.4;
+        color: $dark;
+        margin-bottom: toVw(80px);
+    }
+    &__btn {
+        background-color: $orange;
+        box-shadow: 0px toVw(4px) toVw(20px) $orange;
+        font-weight: 700;
+        font-size: toVw(20px);
+        color: $white;
+        text-transform: uppercase;
+        padding: toVw(24px) toVw(70px);
+        border-radius: toVw(33.5px);
+        border: none;
+        cursor: pointer;
+        transition: .2s;
+        &:hover {
+            background-color: #fdae7a;
+        }
+    }
+    &__social {
+        margin-top: toVw(197px);
+        width: 100%;
+        &__svg {
+            width: 100%;
+        }
+    }
+    &__image {
+        width: 100%;
+        img {
+            width: 100%;
+        }
+    }
+}
+.social {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    &__item {
+        margin-right: toVw(50px);
+        &:last-child {
+            margin-right: 0;
+        }
+        &_margin {
+            margin-right: toVw(25px);
+        }
+    }
+    &__svg {
+        fill: $light-brown;
+        &_hover {
+            transition: .2s;
+            &:hover {
+                fill: $orange;
+            }
+        }
+        &_white {
+            fill: $white;
+            width: toVw(35px);
+            &:hover {
+                scale: 1.2;
+            }
+        }
+    }
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: toVw(24px);
+    margin: toVw(150px) 0;
+    &__item {
+        @include flex-between();
+        flex-direction: column;
+        height: toVw(220px);
+        position: relative;
+        border-radius: toVw(20px);
+        box-shadow: toVw(2px) toVw(2px) toVw(10px) rgba(0, 0, 0, 0.1);
+        padding: toVw(24px);
+        cursor: pointer;
+        &:hover {
+            border: toVw(1px) solid $light-brown;
+            .grid__svg {
+                fill: $brown;
+            }
+        }
+    }
+    &__title {
+        font-weight: 400;
+        font-size: toVw(30px);
+        color: $brown;
+    }
+    &__text {
+        font-weight: 400;
+        font-size: toVw(20px);
+        color: $brown;
+    }
+    &__svg {
+        fill: $orange;
+        width: toVw(110px);
+        height: toVw(110px);
+        position: absolute;
+        bottom: toVw(24px);
+        right: toVw(24px);
+    }
+}
+.history {
+    background-color: #FBF8F8;
+    text-align: center;
+    padding: toVw(180px) 0 toVw(200px);
+    &__text {
+        font-weight: 400;
+        font-size: toVw(20px);
+        color: $brown;
+        margin: toVw(48px) 0 toVw(36px);
+    }
+    .specialists {
+        &__title {
+            margin-top: toVw(100px);
+        }
+        &__slider {
+            margin-top: toVw(48px);
+            margin-bottom: toVw(36px);
+            @include flex-center();
+            &__btn {
+                width: toVw(40px);
+                height: toVw(40px);
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                background-color: $orange;
+                &:first-child {
+                    transform: rotate(180deg);
+                }
+                &:hover {
+                    background-color: #fdae7a;
+                }
+            }
+            &__svg {
+                fill: $white;
+            }
+            &__wrapper {
+                width: toVw(1250px);
+                overflow: hidden;
+                transition: .5s;
+                margin: 0 toVw(20px) 0;
+            }
+            &__list {
+                display: flex;
+                gap: toVw(15px);
+                transition: .4s;
+            }
+            &__item {
+                width: toVw(178px);
+            }
+        }
+    }
+}
+.link-more {
+    font-weight: 700;
+    font-size: toVw(20px);
+    color: $orange;
+    text-transform: uppercase;
+    position: relative;
+    &::after {
+        content: '';
+        background-image: url(../images/arrow-icon.svg);
+        display: block;
+        @include bg-default();
+        background-size: contain;
+        width: toVw(10px);
+        height: toVw(15px);
+        position: absolute;
+        top: 22%;
+        right: -13%;
+        transition: .3s;
+    }
+    &:hover {
+        text-decoration: underline;
+        color: #fdae7a;
+        &::after{
+            translate: toVw(10px);
+        }
+    }
+}
+.counter {
+    text-align: center;
+    padding: toVw(150px) 0 toVw(250px);
+    position: relative;
+    &__title {
+        font-weight: 700;
+        font-size: toVw(144px);
+        color: $brown;
+        margin-bottom: toVw(50px);
+    }
+    &__text {
+        font-weight: 400;
+        font-size: toVw(80px);
+        color: $dark;
+        line-height: 1.4;
+    }
+    &__img {
+        width: toVw(288px);
+        height: toVw(223px);
+        position: absolute;
+        right: 9%;
+        bottom: 10%;
+    }
+}
+.advantages {
+    text-align: center;
+    &__title {
+        margin-top: toVw(150px);
+    }
+    &__grid{
+        margin: toVw(104px) 0 toVw(150px);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: toVw(112px);
+        column-gap: toVw(94px);
+    }
+    &__block {
+        text-align: start;
+        position: relative;
+        &__title {
+            font-weight: 400;
+            font-size: toVw(25px);
+            color: $dark;
+            margin-bottom: toVw(36px);
+        }
+        &__content {
+            @include flex-center();
+            gap: toVw(40px);
+        }
+        &__text {
+            font-weight: 400;
+            font-size: toVw(15px);
+            color: $brown;
+        }
+    }
+}
+.app {
+    background-color: $orange;
+    color: $white;
+    padding: toVw(207px) 0 toVw(170px) 0;
+    &__box {
+        @include flex-center();
+    }
+    &__title {
+        font-size: toVw(75px);
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: toVw(75px);
+    }
+    &__image {
+        position: relative;
+    }
+    &__dog {
+        position: absolute;
+        z-index: 1;
+        max-width: toVw(363px);
+        bottom: toVw(50px);
+        left: toVw(-211px);
+    }
+    &__screen {
+        position: relative;
+        z-index: 2;
+        max-width: toVw(367px);
+    }
+}
+.download {
+    display: flex;
+    align-items: center;
+    gap: toVw(28px);
+    &__link{
+        @include bg-default();
+        display: block;
+        width: toVw(167px);
+        height: toVw(49px);
+    }
+    &__appstore {
+        background-image: url(../images/appstore.svg);
+    }
+    &__googleplay {
+        background-image: url(../images/googleplay.png);
+    }
+}
+.title {
+    font-weight: 400;
+    font-size: toVw(40px);
+    color: $dark;
+}
+.contacts {
+    @include flex-center();
+    margin: toVw(70px) 0 toVw(150px);
+    &__details {
+        display: flex;
+        flex-direction: column;
+        gap: toVw(40px);
+    }
+    &__box {
+        display: flex;
+        flex-direction: column;
+        gap: toVw(20px);
+    }
+    &__title {
+        font-weight: 400;
+        font-size: toVw(30px);
+        color: $dark;
+    }
+    &__text {
+        font-weight: 400;
+        font-size: toVw(20px);
+        color: $brown;
+        display: flex;
+        &::before {
+            content: '';
+            display: block;
+            @include bg-default();
+            width: toVw(25px);
+            height: toVw(25px);
+            margin-right: toVw(20px);
+        }
+        &__address::before {
+            background-image: url(../images/geo.svg);
+            width: toVw(20px);
+            height: toVw(29px);
+        }
+        &__phone-num::before {
+            background-image: url(../images/phone.svg);
+        }
+        &__working-hrs::before {
+            background-image: url(../images/time.svg);
+        }
+    }
+    &__map {
+        width: toVw(730px);
+        height: toVw(370px);
+    }
+}
+.footer {
+    background-color: $brown;
+    padding: toVw(50px) 0;
+    &__box {
+        @include flex-center();
+    }
+    &__logo {
+        background-image: url(../images/logo-footer.svg);
+        @include bg-default();
+        width: toVw(324px);
+        height: toVw(90px);
+    }
+    &__list {
+        display: flex;
+        list-style: none;
+    }
+    &__item {
+        margin: 0 toVw(20px);
+    }
+    &__link {
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: toVw(15px);
+        color: $white;
+        position: relative;
+        display: block;
+        &::before{
+            left: 0;
+            width: 0;
+            content: '';
+            height: toVw(2px);
+            position: absolute;
+            bottom: toVw(-3px);
+            transition: width .5s;
+            background-color: $white;
+        }
+        &:hover::before{
+            width: 100%;
+        }
+    }
+}
+
+@import "media.scss";
